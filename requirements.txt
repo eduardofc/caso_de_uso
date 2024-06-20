@@ -1,0 +1,4 @@
+# python 3.10.13
+databricks-connect==13.3.3 # tiene que coincidir con el Runtime del cluster
+scikit-learn==1.4.2
+pandas==2.2.2
