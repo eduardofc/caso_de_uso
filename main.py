@@ -11,8 +11,9 @@ def train_model(spark, ):
     model = Model(spark)
     model.read_daily_events()
     model.train_test_split()
-    model.modeling()
+    model.model_and_productivize()
     model.save_train_test_metric_tables()
+    model.make_predictions()
 
 
 if __name__ == "__main__":
@@ -38,6 +39,7 @@ if __name__ == "__main__":
     # a) nos dan los valores reales del 1 de febrero (y)
 
     # b) estudiamos si hay drift (calculamos la metrica con y y_hat)
+    # if new_accuracy < accuracy_model_del_registry - 0.2
 
     # c) si hay drift reentramos,
 
