@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import random
+import yaml
 
 def daily_events(date, clientes):
     n = len(clientes)
@@ -14,7 +15,7 @@ def daily_events(date, clientes):
     return df, clientes_out
 
 
-def carga_los_eventos_de_enero(spark, clientes):
+def carga_los_eventos_de_enero(spark, clientes, table_name):
     fechas_enero = pd.date_range(start="2020-01-01", end="2020-01-31")
     fechas_enero = fechas_enero.strftime("%Y-%m-%d").to_list()
     df_final = None
@@ -23,4 +24,10 @@ def carga_los_eventos_de_enero(spark, clientes):
         df_final = pd.concat([df_final, df]) if df_final is not None else df
 
     sdf_final = spark.createDataFrame(df_final)
-    sdf_final.write.mode("overwrite").saveAsTable("default.daily_events")
+    sdf_final.write.mode("overwrite").saveAsTable(table_name)
+
+
+def read_yaml():
+    with open("config.yaml", "rb") as file:
+        config = yaml.safe_load(file)
+    return config
