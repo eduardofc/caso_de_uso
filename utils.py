@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 import random
 import yaml
+from mlflow import MlflowClient
+
 
 def daily_events(date, clientes):
     n = len(clientes)
@@ -31,3 +33,7 @@ def read_yaml():
     with open("config.yaml", "rb") as file:
         config = yaml.safe_load(file)
     return config
+
+def get_last_version(model_name):
+    client = MlflowClient()
+    client.get_latest_versions(model_name)
