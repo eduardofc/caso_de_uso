@@ -2,6 +2,7 @@ from databricks.connect import DatabricksSession as SparkSession
 from databricks.sdk.core import Config
 from datetime import datetime
 
+from jobs.job_evaluate_drift import EvaluateDrift
 from jobs.job_model_training import ModelTraining
 from jobs.job_make_predictions import MakePredictions
 from utils import read_yaml
@@ -20,7 +21,7 @@ if __name__ == "__main__":
     exec_time = datetime.now()
     exec_time = exec_time.strftime('%Y-%m-%dT%H:%M:%S')
 
-    """ 1 de febrero >> first-execution """
+    """ 31 de enero >> first-execution """
 
     # job model-training
     # job = ModelTraining(spark=spark, config=config, exec_time=exec_time)
@@ -30,9 +31,10 @@ if __name__ == "__main__":
     # job = MakePredictions(spark=spark, config=config, exec_time=exec_time, date="2020-02-01")
     # job.run()
 
-    """ 2 de febrero >> daily-execution """
+    """ 1 de febrero >> daily-execution """
 
     # job evaluate-drift
-
+    job = EvaluateDrift(spark=spark, config=config, exec_time=exec_time, date="2020-02-02")
+    job.run()
 
 
