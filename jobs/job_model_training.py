@@ -4,7 +4,7 @@ import pandas as pd
 import mlflow
 from mlflow.models import infer_signature
 from mlflow import MlflowClient
-from mlflow.exceptions import RestException
+
 
 class ModelTraining():
 
