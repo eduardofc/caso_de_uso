@@ -25,6 +25,8 @@ class ModelTraining():
 
     def run(self):
 
+        print(" ** job MODEL TRAINING ** ")
+
         # load training data
         df_events = self.spark.read.table(self.table_daily_events).toPandas()
 

@@ -24,12 +24,12 @@ if __name__ == "__main__":
     """ 31 de enero >> first-execution """
 
     # job model-training
-    # job = ModelTraining(spark=spark, config=config, exec_time=exec_time)
-    # job.run()
+    job = ModelTraining(spark=spark, config=config, exec_time=exec_time)
+    job.run()
 
     # job make-predictions
-    # job = MakePredictions(spark=spark, config=config, exec_time=exec_time, date="2020-02-01")
-    # job.run()
+    job = MakePredictions(spark=spark, config=config, exec_time=exec_time, date="2020-02-01")
+    job.run()
 
     """ 1 de febrero >> daily-execution """
 

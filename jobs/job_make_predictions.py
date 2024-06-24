@@ -2,6 +2,7 @@ from datetime import datetime
 import pandas as pd
 import mlflow
 from mlflow import MlflowClient
+import time
 
 
 class MakePredictions():
@@ -20,6 +21,8 @@ class MakePredictions():
 
 
     def run(self):
+
+        print(" ** job MAKE PREDICTIONS ** ")
 
         # load training data
         df_daily_features = (

@@ -19,7 +19,6 @@ def daily_events(date, clientes):
     clientes_out =  df[df.y == 1]['id_cliente'].to_list() # clientes que se van de la compañía
     return df, clientes_out
 
-
 def daily_features(date, clientes):
     n = len(clientes)
     x1 = np.random.uniform(1.0, 20.0, size=n)
@@ -70,3 +69,7 @@ def carga_1_febrero(clientes):
     sdf_features.write.mode("append").saveAsTable("default.daily_features")
 
     return clientes
+
+if __name__ == "__main__":
+    clientes = carga_31_enero()
+    clientes = carga_1_febrero(clientes)
