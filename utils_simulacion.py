@@ -29,13 +29,14 @@ def daily_features(date, clientes):
     return df
 
 
-def carga_31_enero():
+def carga_1_febrero():
 
     """ generamos 1000 clientes en la bbdd"""
     n = 1000
     clientes = [f"{np.random.randint(10000, 99999)}{chr(np.random.randint(65, 90))}" for _ in range(n)]
 
-    """ cargamos la tabla histórica de daily_events para los días 1 al 31 de enero """
+    """ daily_events para los días 1 al 31 de enero (histórico) """
+    # con este dataset haremos el modelo
     fechas_enero = pd.date_range(start="2020-01-01", end="2020-01-31")
     fechas_enero = fechas_enero.strftime("%Y-%m-%d").to_list()
     df_final = None
@@ -46,7 +47,8 @@ def carga_31_enero():
     sdf_final = spark.createDataFrame(df_final)
     sdf_final.write.mode("overwrite").saveAsTable("default.daily_events")
 
-    """ cargamos la tabla de features de clientes para predecir el día 1 de febrero """
+    """ daily_features del día 1 de febrero """
+    # con este dataset prediciremos quién se irá el día 1 de febrero, estarán las features de los clientes que se van a ir
     df_features = daily_features(date="2020-02-01", clientes=clientes) # hago prediccion para todos los clientes
     sdf_features = spark.createDataFrame(df_features)
     sdf_features.write.mode("overwrite").saveAsTable("default.daily_features")
@@ -55,15 +57,15 @@ def carga_31_enero():
     return clientes
 
 
-def carga_1_febrero(clientes):
+def carga_2_febrero(clientes):
 
-    """ cargamos la tabla de daily_events para el día 1 feb """
+    """ daily_events para el día 1 de febrero """
     df_daily_events, clientes_out = daily_events(date="2020-02-01", clientes=random.sample(clientes, 100))
     clientes = [c for c in clientes if c not in clientes_out]
     sdf_daily_events = spark.createDataFrame(df_daily_events)
     sdf_daily_events.write.mode("append").saveAsTable("default.daily_events")
 
-    """ cargamos la tabla de features de clientes para predecir el día 2 de febrero """
+    """ daily_features del día 2 de febrero """
     df_features = daily_features(date="2020-02-02", clientes=clientes)
     sdf_features = spark.createDataFrame(df_features)
     sdf_features.write.mode("append").saveAsTable("default.daily_features")
@@ -71,5 +73,5 @@ def carga_1_febrero(clientes):
     return clientes
 
 if __name__ == "__main__":
-    clientes = carga_31_enero()
-    clientes = carga_1_febrero(clientes)
+    clientes = carga_1_febrero()
+    clientes = carga_2_febrero(clientes)
